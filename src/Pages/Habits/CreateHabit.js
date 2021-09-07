@@ -48,6 +48,7 @@ const CreateNewHabit = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    margin-bottom: 30px;
 `
 
 const Wrapper = styled.div`

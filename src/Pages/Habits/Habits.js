@@ -6,7 +6,8 @@ import CreateHabit from './CreateHabit';
 import { useState } from "react";
 
 function Habits() {
-    let [createHabit, setCreateHabit] = useState(false)
+    let [createHabit, setCreateHabit] = useState(false);
+    let [habits, setHabits] = useState([]);
 
     return (
         <Main>
@@ -18,8 +19,15 @@ function Habits() {
                 </AddHabit>
                 {createHabit ? <CreateHabit setCreateHabit={setCreateHabit}/> : ''}
             </MyHabits>
+            {habits.length === 0 ? <Tip /> : ''}
             <Footer />
         </Main>
+    )
+}
+
+function Tip() {
+    return (
+        <TipText>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</TipText>
     )
 }
 
@@ -61,6 +69,12 @@ const Button = styled.button`
     background-color: #52B6FF;
     color: white;
     font-size: 29px;
+`
+
+const TipText = styled.p`
+    width: 92%;
+    font-size: 18px;
+    color: #666666;
 `
 
 export default Habits
