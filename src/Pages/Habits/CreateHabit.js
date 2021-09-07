@@ -1,22 +1,35 @@
-import styled from "styled-components"
+import styled from "styled-components";
+import { useState } from "react";
+import Day from './Day';
 
-function CreateHabit() {
+function CreateHabit({setCreateHabit}) {
+    let [selectedDays, setSelectedDays] = useState([]);
+    let weekdays = ['S', 'T', 'Q', 'Q', 'S', 'S', 'D'];
+
+    function changeCurrentDays(e) {
+        let arr = [].slice.call(e.target.parentNode.children);
+        let x = ((arr.indexOf(e.target)));
+        let index = selectedDays.indexOf(x);
+        if (index === -1){
+            setSelectedDays([...selectedDays, x]);
+        }
+        else {
+            selectedDays.splice(index, 1);
+            setSelectedDays([...selectedDays]);
+        }
+    }
+    console.log(selectedDays)
+
     return (
         <CreateNewHabit>
             <Wrapper>
                 <Input placeholder='nome do hábito' />
                 <Week>
-                    <Day>S</Day>
-                    <Day>T</Day>
-                    <Day>Q</Day>
-                    <Day>Q</Day>
-                    <Day>S</Day>
-                    <Day>S</Day>
-                    <Day>D</Day>
+                    {weekdays.map((day, index) => <Day day={day} changeCurrentDays={changeCurrentDays} selectedDays={selectedDays} key={index} access={index}/>)}
                 </Week>
             </Wrapper>
             <Options>
-                <OptionsButton >
+                <OptionsButton onClick={() => setCreateHabit(false)}>
                     Cancelar
                 </OptionsButton>
                 <OptionsButton background={'#52B6FF'} color={'white'}>
@@ -59,19 +72,6 @@ const Week = styled.div`
     height: 30px;
     width: 100%;
     display: flex;
-`
-
-const Day = styled.button`
-    width: 30px;
-    height: 30px;
-    margin: 0px 4px 0px 0px;
-    padding: 0px;
-    border-radius: 5px;
-    border: 0px;
-    background-color: transparent;
-    border: 1px solid #D4D4D4;
-    color: #DBDBDB;
-    font-size: 20px;
 `
 
 const Options = styled.div`

@@ -2,17 +2,20 @@ import Topbar from "../../Components/Topbar";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import CreateHabit from './CreateHabit'
+import { useState } from "react";
 
 function Habits() {
+    let [createHabit, setCreateHabit] = useState(false)
+
     return (
         <Main>
             <Topbar />
             <MyHabits>
                 <AddHabit>
                     <P>Meus hábitos</P>
-                    <Button>+</Button>
+                    <Button onClick={() => setCreateHabit(true)}>+</Button>
                 </AddHabit>
-                <CreateHabit />
+                {createHabit ? <CreateHabit setCreateHabit={setCreateHabit}/> : ''}
             </MyHabits>
         </Main>
     )
@@ -37,6 +40,7 @@ const AddHabit = styled.div`
     height: 35px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 `
 
