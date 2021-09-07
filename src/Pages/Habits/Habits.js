@@ -1,7 +1,8 @@
-import Topbar from "../../Components/Topbar";
+import Topbar from "../../Components/Topbar/Topbar";
+import Footer from "../../Components/Footer/Footer";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import CreateHabit from './CreateHabit'
+import CreateHabit from './CreateHabit';
 import { useState } from "react";
 
 function Habits() {
@@ -17,6 +18,7 @@ function Habits() {
                 </AddHabit>
                 {createHabit ? <CreateHabit setCreateHabit={setCreateHabit}/> : ''}
             </MyHabits>
+            <Footer />
         </Main>
     )
 }
