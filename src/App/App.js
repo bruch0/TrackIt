@@ -4,6 +4,7 @@ import GlobalStyle from '../globalStyles';
 import Login from '../Pages/Login/Login';
 import Register from '../Pages/Register/Register'
 import Habits from '../Pages/Habits/Habits';
+import Today from '../Pages/Today/Today';
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
 
         <Route path="/habitos">
           <Habits />
+        </Route>
+
+        <Route path="/hoje">
+          <Today />
         </Route>
       </Switch>
     </BrowserRouter>

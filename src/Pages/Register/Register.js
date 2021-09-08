@@ -3,8 +3,8 @@ import logo from '../../logo.png';
 import Loader from "react-loader-spinner";
 import { Link, useHistory } from 'react-router-dom';
 import { useState } from "react";
-import { RegisterAPI } from "../../Api/Api";
-import Swal from 'sweetalert2'
+import { RegisterAPI } from "../../Services/Api";
+import Swal from 'sweetalert2';
 
 
 function Register() {
@@ -28,20 +28,20 @@ function Register() {
     function RegisterUser(obj) {
         setLoading(true);
         RegisterAPI(obj)
-            .then(function(){history.push("/")})
+            .then(() => history.push('/'))
             .catch(() => {
+                setLoading(false)
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Alguma coisa deu errado, tente novamente mais tarde',
-                  })
-                setLoading(false);
-            });
+                })
+            })
+
     }
 
     return (
         <Main>
-
             <Img src={logo} />
             <Input placeholder="email" onChange={(e) => changeEmail(e)} loading={loading}/>
             <Input type='password' placeholder="senha" onChange={(e) => changePassword(e)} loading={loading}/>
