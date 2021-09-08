@@ -2,12 +2,15 @@ import styled  from 'styled-components'
 import { Link, useHistory } from 'react-router-dom'
 import logo from '../../logo.png'
 import { LoginApi } from '../../Services/Api'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import Loader from "react-loader-spinner";
 import Swal from 'sweetalert2';
-
+import { LoginContext } from '../../Context/Context'
 
 function Login() {
+
+    const {setLogged, setUserPhoto, setUserToken} = useContext(LoginContext);
+
     let [userLogin, setUserLogin] = useState({email: '', password: ''});
     let [loading, setLoading] = useState(false);
     let history = useHistory();
@@ -22,7 +25,12 @@ function Login() {
     function tryLogin() {
         setLoading(true);
         LoginApi(userLogin)
-            .then((response) => {history.push('/hoje'); console.log(response)})
+            .then((response) => {
+                setUserPhoto(response.data.image);
+                setUserToken(response.data.token);
+                history.push('/hoje');
+                setLogged(true);
+            })
             .catch(() => {
                 setLoading(false)
                 Swal.fire({
@@ -49,7 +57,7 @@ function Login() {
 
 const Main = styled.div`
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 25%);
     display: flex;
     flex-direction: column;
     margin-top: 25%;

@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Topbar from '../../Components/Topbar/Topbar'
 import Footer from '../../Components/Footer/Footer'
 
-
 function Today() {
     return(
         <Main>

@@ -1,10 +1,15 @@
 import styled from "styled-components";
+import {  useContext } from 'react'
+import { LoginContext } from '../../Context/Context'
+
 
 function Topbar() {
+    const {userPhoto} = useContext(LoginContext);
+
     return (
         <TopbarDiv>
             <P>TrackIt</P>
-            <Img src='https://yt3.ggpht.com/ytc/AKedOLQ6Ief26j8b1lgSA1OpXSCzJBlnlEEsWtQAfdwB=s176-c-k-c0x00ffffff-no-rj' />
+            <Img src={userPhoto} />
         </TopbarDiv>
     )
 }

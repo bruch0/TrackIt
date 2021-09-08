@@ -3,9 +3,11 @@ import Footer from "../../Components/Footer/Footer";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import CreateHabit from './CreateHabit';
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { LoginContext } from "../../Context/Context";
 
 function Habits() {
+    const {userToken} = useContext(LoginContext);
     let [createHabit, setCreateHabit] = useState(false);
     let [habits, setHabits] = useState([]);
 

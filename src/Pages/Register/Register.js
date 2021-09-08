@@ -59,7 +59,7 @@ function Register() {
 
 const Main = styled.div`
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 25%);
     display: flex;
     flex-direction: column;
     margin-top: 25%;

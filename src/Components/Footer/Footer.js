@@ -5,9 +5,13 @@ import {
 import "react-circular-progressbar/dist/styles.css";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { LoginContext } from '../../Context/Context'
+import { useContext } from "react";
 
-function Footer(props) {
-    let percentage = 66;
+function Footer() {
+    const {dayProgress} = useContext(LoginContext);
+
+    let percentage = dayProgress;
     return (
         <FooterDiv>
             <Link to='/habitos'>
