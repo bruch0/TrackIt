@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import logo from '../../logo.png';
+import logo from '../../Assets/logo.png';
 import Loader from "react-loader-spinner";
 import { Link, useHistory } from 'react-router-dom';
 import { useState } from "react";

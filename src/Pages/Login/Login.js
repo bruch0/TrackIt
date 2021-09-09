@@ -1,6 +1,6 @@
 import styled  from 'styled-components' 
 import { Link, useHistory } from 'react-router-dom'
-import logo from '../../logo.png'
+import logo from '../../Assets/logo.png'
 import { LoginApi } from '../../Services/Api'
 import { useState, useContext, useEffect } from 'react'
 import Loader from "react-loader-spinner";
