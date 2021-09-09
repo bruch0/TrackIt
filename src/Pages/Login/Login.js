@@ -2,18 +2,37 @@ import styled  from 'styled-components'
 import { Link, useHistory } from 'react-router-dom'
 import logo from '../../logo.png'
 import { LoginApi } from '../../Services/Api'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import Loader from "react-loader-spinner";
 import Swal from 'sweetalert2';
-import { LoginContext } from '../../Context/Context'
+import { Context } from '../../Context/Context'
 
 function Login() {
-
-    const {setLogged, setUserPhoto, setUserToken} = useContext(LoginContext);
+    const {setLogged, setUserPhoto, setUserToken} = useContext(Context);
 
     let [userLogin, setUserLogin] = useState({email: '', password: ''});
     let [loading, setLoading] = useState(false);
     let history = useHistory();
+    let check = localStorage.getItem("hasLogged");
+
+    function storeUserInfo() {
+        if (!check) {
+            let userInfo = userLogin;
+            let store = JSON.stringify(userInfo);
+            localStorage.setItem('userInfo', store);
+        }
+    }
+
+    function checkUserHasLogged() {
+        if (check) {
+            let stored = JSON.parse(localStorage.getItem('userInfo'));
+            tryLogin(stored);
+        }
+    }
+
+    useEffect(() => {
+        checkUserHasLogged()
+	}, [userLogin]);
 
     function changeEmail(e) {
         setUserLogin({email: e.target.value, password: userLogin.password})
@@ -22,14 +41,16 @@ function Login() {
         setUserLogin({email: userLogin.email, password: e.target.value})
     }
 
-    function tryLogin() {
+    function tryLogin(userInfo) {
         setLoading(true);
-        LoginApi(userLogin)
+        LoginApi(userInfo)
             .then((response) => {
                 setUserPhoto(response.data.image);
                 setUserToken(response.data.token);
                 history.push('/hoje');
                 setLogged(true);
+                storeUserInfo();
+                localStorage.setItem('hasLogged', 'true');
             })
             .catch(() => {
                 setLoading(false)
@@ -46,7 +67,7 @@ function Login() {
             <Input placeholder="email" onChange={(e) => changeEmail(e)} loading={loading}/>
             <Input type='password' placeholder="senha" onChange={(e) => changePassword(e)} loading={loading}/>
 
-            {(!loading ? <Button onClick={tryLogin}>Entrar</Button> : <Wrapper><Loader type="ThreeDots" color="white" height={45} width={80} /></Wrapper>)}
+            {(!loading ? <Button onClick={() => tryLogin(userLogin)}>Entrar</Button> : <Wrapper><Loader type="ThreeDots" color="white" height={45} width={80} /></Wrapper>)}
 
             <Link to='/cadastro'>
                 <P>Não tem uma conta? Cadastre-se!</P>

@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import {  useContext } from 'react'
-import { LoginContext } from '../../Context/Context'
+import { Context } from '../../Context/Context'
 
 
 function Topbar() {
-    const {userPhoto} = useContext(LoginContext);
+    const {userPhoto} = useContext(Context);
 
     return (
         <TopbarDiv>

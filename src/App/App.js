@@ -5,7 +5,8 @@ import Login from '../Pages/Login/Login';
 import Register from '../Pages/Register/Register'
 import Habits from '../Pages/Habits/Habits';
 import Today from '../Pages/Today/Today';
-import { LoginContext } from '../Context/Context';
+import History from '../Pages/History/History';
+import { Context } from '../Context/Context';
 
 function App() {
   let [dayProgress, setDayProgress] = useState(0);
@@ -15,7 +16,7 @@ function App() {
 
   return (
     <BrowserRouter >
-      <LoginContext.Provider value={
+      <Context.Provider value={
           {dayProgress, setDayProgress, logged, setLogged, userPhoto, setUserPhoto, userToken, setUserToken}
         }>
         <GlobalStyle />
@@ -35,8 +36,12 @@ function App() {
           <Route path="/hoje">
             <Today />
           </Route>
+
+          <Route path="/historico">
+            <History />
+          </Route>
         </Switch>
-      </LoginContext.Provider>
+      </Context.Provider>
     </BrowserRouter>
   );
 }
