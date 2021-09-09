@@ -4,10 +4,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import CreateHabit from './CreateHabit';
 import { useState, useContext } from "react";
-import { Context } from "../../Context/Context";
 
 function Habits() {
-    const {userToken} = useContext(Context);
     let [createHabit, setCreateHabit] = useState(false);
     let [habits, setHabits] = useState([]);
 

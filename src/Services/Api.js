@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { useContext } from 'react'
 
 
 let URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/';
@@ -14,12 +13,13 @@ function RegisterAPI(obj) {
     return promise
 }
 
-function getTodayHabits() {
+function GetTodayHabits(token) {
     const config = {
         headers: {
-            Authorization: `Bearer `
+            Authorization: `Bearer ${token}`
         }
     }
+
     const promise = axios.get(URL + 'habits/today', config);
     return promise
 }
@@ -27,4 +27,5 @@ function getTodayHabits() {
 export {
     LoginApi,
     RegisterAPI,
+    GetTodayHabits,
 }
