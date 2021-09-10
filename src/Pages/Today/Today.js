@@ -33,27 +33,43 @@ function Today() {
             <TodayDiv>
                 <P>{date}</P>
                 <HabitPercentage color={dayProgress !== 0}>{dayProgress !== 0 ? `${dayProgress}% dos hábitos concluídos` : 'Nenhum hábito concluído ainda'}</HabitPercentage>
-                {habits.map((habit, index) => <UserHabit title={habit.name} spree={habit.currentSequence} record={habit.highestSequence} id={habit.id} key={index} habitDone={habit.done} />)}
+                {habits.map((habit, index) => <UserHabit title={habit.name} habitSpree={habit.currentSequence} habitRecord={habit.highestSequence} id={habit.id} key={index} habitDone={habit.done} />)}
             </TodayDiv>
             <Footer />
         </Main>
     )
 }
 
-function UserHabit({title, spree, record, id, habitDone}) {
+function UserHabit({title, habitSpree, habitRecord, id, habitDone}) {
     let [done, setDone] = useState(habitDone);
+    let [spree, setSpree] = useState(habitSpree);
+    let [record, setRecord] = useState(habitRecord);
     const {userToken} = useContext(Context);
-    console.log(userToken)
 
-    function ChangeStateHabit(token, id) {
+    function uncheck() {
+        if (record === spree && record !== 0) {
+            setRecord(record - 1)
+        }
+        setSpree(spree - 1);
+    }
+
+    function check() {
+        if (record === spree) {
+            setRecord(record + 1)
+        }
+        setSpree(spree + 1);
+    }
+
+    function ChangeHabit(token, id) {
         if (!done) {
             ChangeHabitState(token, id, 'check');
             setDone(true);
+            check();
         }
         else {
-            console.log('a')
             ChangeHabitState(token, id, 'uncheck');
             setDone(false);
+            uncheck();
         }
     }
 
@@ -61,10 +77,10 @@ function UserHabit({title, spree, record, id, habitDone}) {
         <Habit>
             <Wrapper>
                 <HabitTitle>{title}</HabitTitle>
-                <HabitDescription done={done}>Sequencia atual: {spree} dias</HabitDescription>
-                <HabitDescription done={spree === record && record !== 0}>Seu recorde: {record} dias</HabitDescription>
+                <HabitDescription>Sequencia atual: <Span done={done}>{spree} {spree > 1 ? 'dias' : 'dia'}</Span></HabitDescription>
+                <HabitDescription>Seu recorde: <Span done={spree === record && record !== 0}>{record} {spree > 1 ? 'dias' : 'dia'}</Span></HabitDescription>
             </Wrapper>
-            <HabitButton onClick={() => ChangeStateHabit(userToken, id)} done={done}>
+            <HabitButton onClick={() => ChangeHabit(userToken, id)} done={done}>
                 <Checkmark
                 color={'#ffffff'} 
                 title={''}
@@ -127,6 +143,10 @@ const HabitDescription = styled.p`
     font-size: 13px;
     color: #666666;
     margin-bottom: 5px;
+`
+
+const Span = styled.span`
+    color: ${props => props.done ? '#8FC549' : '#666666'};
 `
 
 const HabitButton = styled.button`

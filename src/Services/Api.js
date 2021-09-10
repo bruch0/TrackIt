@@ -63,8 +63,7 @@ function ChangeHabitState(token, id, state) {
           Authorization: `Bearer ${token}`
         }
       }
-
-    axios.post(URL + `habits/${id}/${state}`, config)
+    axios.post(URL + `habits/${id}/${state}`, {}, config)
 }
 
 export {
