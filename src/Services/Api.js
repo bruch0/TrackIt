@@ -66,6 +66,17 @@ function ChangeHabitState(token, id, state) {
     axios.post(URL + `habits/${id}/${state}`, {}, config)
 }
 
+function GetHistory(token) {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+
+    const promise = axios.get(URL + 'habits/history/daily', config);
+    return promise
+}
+
 export {
     LoginApi,
     RegisterAPI,
@@ -74,4 +85,5 @@ export {
     CreateUserHabit,
     DeleteHabit,
     ChangeHabitState,
+    GetHistory
 }
