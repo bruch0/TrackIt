@@ -13,8 +13,10 @@ function Today() {
     let date = dayjs().locale('pt-br').format('dddd, DD/MM')
 
     const {userToken, dayProgress} = useContext(Context);
-    let [habits, setHabits] = useState([])
+    let [habits, setHabits] = useState([]);
+    let pointsPerHabit;
 
+    habits.length !== 0 ? pointsPerHabit = 100 / habits.length : pointsPerHabit = 0;
     useEffect(() => {
         GetTodayHabits(userToken)
         .then((response) => setHabits(response.data))
@@ -32,25 +34,30 @@ function Today() {
             <Topbar />
             <TodayDiv>
                 <P>{date}</P>
-                <HabitPercentage color={dayProgress !== 0}>{dayProgress !== 0 ? `${dayProgress}% dos hábitos concluídos` : 'Nenhum hábito concluído ainda'}</HabitPercentage>
-                {habits.map((habit, index) => <UserHabit title={habit.name} habitSpree={habit.currentSequence} habitRecord={habit.highestSequence} id={habit.id} key={index} habitDone={habit.done} />)}
+                <HabitPercentage color={dayProgress !== 0}>{dayProgress !== 0 ? `${dayProgress.toFixed(0)}% dos hábitos concluídos` : 'Nenhum hábito concluído ainda'}</HabitPercentage>
+
+                {habits.map((habit, index) => <UserHabit title={habit.name} habitSpree={habit.currentSequence} habitRecord={habit.highestSequence} id={habit.id} key={index} habitDone={habit.done} pointsPerHabit={pointsPerHabit} />)}
             </TodayDiv>
             <Footer />
         </Main>
     )
 }
 
-function UserHabit({title, habitSpree, habitRecord, id, habitDone}) {
+function UserHabit({title, habitSpree, habitRecord, id, habitDone, pointsPerHabit}) {
     let [done, setDone] = useState(habitDone);
     let [spree, setSpree] = useState(habitSpree);
     let [record, setRecord] = useState(habitRecord);
-    const {userToken} = useContext(Context);
+    const {userToken, dayProgress, setDayProgress} = useContext(Context);
 
     function uncheck() {
-        if (record === spree && record !== 0) {
-            setRecord(record - 1)
-        }
+        setRecord(record - 1)
         setSpree(spree - 1);
+        if (dayProgress - pointsPerHabit <= 0) {
+            setDayProgress(0)
+        }
+        else {
+            setDayProgress(dayProgress - pointsPerHabit);
+        }
     }
 
     function check() {
@@ -58,6 +65,7 @@ function UserHabit({title, habitSpree, habitRecord, id, habitDone}) {
             setRecord(record + 1)
         }
         setSpree(spree + 1);
+        setDayProgress(dayProgress + pointsPerHabit);
     }
 
     function ChangeHabit(token, id) {
