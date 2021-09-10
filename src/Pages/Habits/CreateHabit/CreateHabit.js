@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { Context } from "../../../Context/Context";
 import Loader from "react-loader-spinner";
 
-function CreateHabit({setCreateHabit, weekdays, newHabit, setNewHabit}) {
+function CreateHabit({setCreateHabit, weekdays, newHabit, setNewHabit, habits, setHabits}) {
     let history = useHistory();
     let [selectedDays, setSelectedDays] = useState([]);
     let [loading, setLoading] = useState(false);
@@ -39,6 +39,7 @@ function CreateHabit({setCreateHabit, weekdays, newHabit, setNewHabit}) {
                 history.push('/habitos');
                 setLoading(false);
                 setCreateHabit(false);
+                setHabits([...habits, postBody])
             })
             .catch(() => {
                 setLoading(false)

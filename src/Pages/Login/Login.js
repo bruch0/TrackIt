@@ -2,7 +2,7 @@ import styled  from 'styled-components'
 import { Link, useHistory } from 'react-router-dom'
 import logo from '../../Assets/logo.png'
 import { LoginApi } from '../../Services/Api'
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect, useCallback } from 'react'
 import Loader from "react-loader-spinner";
 import Swal from 'sweetalert2';
 import { Context } from '../../Context/Context'
@@ -15,33 +15,15 @@ function Login() {
     let history = useHistory();
     let check = localStorage.getItem("hasLogged");
 
-    function storeUserInfo() {
+    const storeUserInfo = useCallback(() => {
         if (!check) {
             let userInfo = userLogin;
             let store = JSON.stringify(userInfo);
             localStorage.setItem('userInfo', store);
         }
-    }
+    }, [check, userLogin])
 
-    function checkUserHasLogged() {
-        if (check) {
-            let stored = JSON.parse(localStorage.getItem('userInfo'));
-            tryLogin(stored);
-        }
-    }
-
-    useEffect(() => {
-        checkUserHasLogged()
-	}, [userLogin]);
-
-    function changeEmail(e) {
-        setUserLogin({email: e.target.value, password: userLogin.password})
-    }
-    function changePassword(e) {
-        setUserLogin({email: userLogin.email, password: e.target.value})
-    }
-
-    function tryLogin(userInfo) {
+    const tryLogin = useCallback((userInfo) => {
         setLoading(true);
         LoginApi(userInfo)
             .then((response) => {
@@ -60,7 +42,48 @@ function Login() {
                     text: 'Alguma coisa deu errado, tente novamente mais tarde',
                 })
             })
+
+      }, [setLoading, history, setLogged, setUserPhoto, setUserToken, storeUserInfo])
+
+    useEffect(() => {
+        function checkUserHasLogged() {
+            if (check) {
+                let stored = JSON.parse(localStorage.getItem('userInfo'));
+                tryLogin(stored);
+            }
+        }
+
+        checkUserHasLogged();
+	}, [check, tryLogin]);
+
+    function changeEmail(e) {
+        setUserLogin({email: e.target.value, password: userLogin.password})
     }
+    function changePassword(e) {
+        setUserLogin({email: userLogin.email, password: e.target.value})
+    }
+
+    
+    // function tryLogin(userInfo) {
+    //     setLoading(true);
+    //     LoginApi(userInfo)
+    //         .then((response) => {
+    //             setUserPhoto(response.data.image);
+    //             setUserToken(response.data.token);
+    //             history.push('/hoje');
+    //             setLogged(true);
+    //             storeUserInfo();
+    //             localStorage.setItem('hasLogged', 'true');
+    //         })
+    //         .catch(() => {
+    //             setLoading(false)
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Oops...',
+    //                 text: 'Alguma coisa deu errado, tente novamente mais tarde',
+    //             })
+    //         })
+    // }
     return (
         <Main>
             <Img src={logo} />

@@ -1,7 +1,6 @@
 import Topbar from "../../Components/Topbar/Topbar";
 import Footer from "../../Components/Footer/Footer";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import CreateHabit from './CreateHabit/CreateHabit';
 import { useState, useContext, useEffect } from "react";
 import { GetHabits, DeleteHabit } from '../../Services/Api'
@@ -21,7 +20,7 @@ function Habits() {
             .then((response) => {
                 setHabits(response.data);
             })
-	}, []);
+	}, [userToken]);
 
     return (
         <Main>
@@ -31,8 +30,10 @@ function Habits() {
                     <P>Meus hábitos</P>
                     <Button onClick={() => setCreateHabit(true)}>+</Button>
                 </AddHabit>
-                {createHabit ? <CreateHabit setCreateHabit={setCreateHabit} weekdays={weekdays} newHabit={newHabit} setNewHabit={setNewHabit}/> : ''}
-                {habits.map((habit, index) => <Habit weekdays={weekdays} name={habit.name} selectedDays={habit.days} key={index} id={habit.id}/>)}
+
+                {createHabit ? <CreateHabit setCreateHabit={setCreateHabit} weekdays={weekdays} newHabit={newHabit} setNewHabit={setNewHabit} habits={habits} setHabits={setHabits}/> : ''}
+
+                {habits.map((habit, index) => <Habit habits={habits} setHabits={setHabits} weekdays={weekdays} name={habit.name} selectedDays={habit.days} key={index} id={habit.id} access={index}/>)}
             </MyHabits>
             {habits.length === 0 ? <Tip /> : ''}
             <Footer />
@@ -46,7 +47,7 @@ function Tip() {
     )
 }
 
-function Habit({weekdays, name, selectedDays, id}) {
+function Habit({weekdays, name, selectedDays, id, habits, setHabits, access}) {
     let {userToken} = useContext(Context);
 
     function ConfirmDelete() {
@@ -60,6 +61,9 @@ function Habit({weekdays, name, selectedDays, id}) {
             confirmButtonText: 'Sim, deletar'
           }).then((result) => {
             if (result.isConfirmed) {
+                let index = habits.indexOf(habits[access])
+                habits.splice(index, 1)
+                setHabits([...habits])
                 DeleteHabit(userToken, id)
                     .then(() => Swal.fire(
                         'Sucesso',
