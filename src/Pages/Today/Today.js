@@ -1,8 +1,8 @@
 import * as dayjs from 'dayjs'
 import styled from 'styled-components'
 import { Checkmark } from 'react-ionicons'
-import { useContext, useState } from 'react'
-import { GetTodayHabits } from '../../Services/Api'
+import { useContext, useEffect, useState } from 'react'
+import { GetTodayHabits, ChangeHabitState } from '../../Services/Api'
 import { Context } from '../../Context/Context'
 import Topbar from '../../Components/Topbar/Topbar'
 import Footer from '../../Components/Footer/Footer'
@@ -13,10 +13,11 @@ function Today() {
     let date = dayjs().locale('pt-br').format('dddd, DD/MM')
 
     const {userToken, dayProgress} = useContext(Context);
-    let habits;
+    let [habits, setHabits] = useState([])
 
-    GetTodayHabits(userToken)
-        .then((response) => habits = response.data)
+    useEffect(() => {
+        GetTodayHabits(userToken)
+        .then((response) => setHabits(response.data))
         .catch(() => {
             Swal.fire({
                 icon: 'error',
@@ -24,6 +25,7 @@ function Today() {
                 text: 'Alguma coisa deu errado, tente novamente mais tarde',
             })
         });
+	}, [userToken]);
 
     return(
         <Main>
@@ -31,22 +33,38 @@ function Today() {
             <TodayDiv>
                 <P>{date}</P>
                 <HabitPercentage color={dayProgress !== 0}>{dayProgress !== 0 ? `${dayProgress}% dos hábitos concluídos` : 'Nenhum hábito concluído ainda'}</HabitPercentage>
-                <UserHabit />
+                {habits.map((habit, index) => <UserHabit title={habit.name} spree={habit.currentSequence} record={habit.highestSequence} id={habit.id} key={index} habitDone={habit.done} />)}
             </TodayDiv>
             <Footer />
         </Main>
     )
 }
 
-function UserHabit() {
+function UserHabit({title, spree, record, id, habitDone}) {
+    let [done, setDone] = useState(habitDone);
+    const {userToken} = useContext(Context);
+    console.log(userToken)
+
+    function ChangeStateHabit(token, id) {
+        if (!done) {
+            ChangeHabitState(token, id, 'check');
+            setDone(true);
+        }
+        else {
+            console.log('a')
+            ChangeHabitState(token, id, 'uncheck');
+            setDone(false);
+        }
+    }
+
     return (
         <Habit>
             <Wrapper>
-                <HabitTitle>Ler 1 livro</HabitTitle>
-                <HabitDescription>sequencia atual: 5 dias</HabitDescription>
-                <HabitDescription>seu recorde: 3 dias</HabitDescription>
+                <HabitTitle>{title}</HabitTitle>
+                <HabitDescription done={done}>Sequencia atual: {spree} dias</HabitDescription>
+                <HabitDescription done={spree === record && record !== 0}>Seu recorde: {record} dias</HabitDescription>
             </Wrapper>
-            <HabitButton>
+            <HabitButton onClick={() => ChangeStateHabit(userToken, id)} done={done}>
                 <Checkmark
                 color={'#ffffff'} 
                 title={''}
@@ -117,7 +135,7 @@ const HabitButton = styled.button`
     margin: 0px;
     border-radius: 5px;
     border: 0px;
-    background-color: #EBEBEB;
+    background-color: ${props => props.done ? '#8FC549' : '#EBEBEB'};
     border: 0px;
     font-weight: bold;
     font-family: 'Lexend Deca';
