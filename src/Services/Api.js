@@ -57,6 +57,16 @@ function DeleteHabit(token, id) {
     return promise
 }
 
+function ChangeHabitState(token, id, state) {
+    const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+
+    axios.post(URL + `habits/${id}/${state}`, config)
+}
+
 export {
     LoginApi,
     RegisterAPI,
@@ -64,4 +74,5 @@ export {
     GetHabits,
     CreateUserHabit,
     DeleteHabit,
+    ChangeHabitState,
 }
