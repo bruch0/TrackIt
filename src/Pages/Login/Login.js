@@ -43,7 +43,7 @@ function Login() {
                 })
             })
 
-      }, [setLoading, history, setLogged, setUserPhoto, setUserToken, storeUserInfo])
+    }, [setLoading, history, setLogged, setUserPhoto, setUserToken, storeUserInfo])
 
     useEffect(() => {
         function checkUserHasLogged() {
@@ -63,32 +63,11 @@ function Login() {
         setUserLogin({email: userLogin.email, password: e.target.value})
     }
 
-    
-    // function tryLogin(userInfo) {
-    //     setLoading(true);
-    //     LoginApi(userInfo)
-    //         .then((response) => {
-    //             setUserPhoto(response.data.image);
-    //             setUserToken(response.data.token);
-    //             history.push('/hoje');
-    //             setLogged(true);
-    //             storeUserInfo();
-    //             localStorage.setItem('hasLogged', 'true');
-    //         })
-    //         .catch(() => {
-    //             setLoading(false)
-    //             Swal.fire({
-    //                 icon: 'error',
-    //                 title: 'Oops...',
-    //                 text: 'Alguma coisa deu errado, tente novamente mais tarde',
-    //             })
-    //         })
-    // }
     return (
         <Main>
             <Img src={logo} />
-            <Input placeholder="email" onChange={(e) => changeEmail(e)} loading={loading}/>
-            <Input type='password' placeholder="senha" onChange={(e) => changePassword(e)} loading={loading}/>
+            <Input placeholder="email" onChange={(e) => changeEmail(e)} loading={loading ? 1 : 0}/>
+            <Input type='password' placeholder="senha" onChange={(e) => changePassword(e)} loading={loading ? 1 : 0}/>
 
             {(!loading ? <Button onClick={() => tryLogin(userLogin)}>Entrar</Button> : <Wrapper><Loader type="ThreeDots" color="white" height={45} width={80} /></Wrapper>)}
 
