@@ -16,36 +16,34 @@ function History() {
 
     useEffect(() => {
         GetHistory(userToken)
-            .then((response) => setDays(response.data))
-	}, [days]);
-
-    
+            .then((response) => {setDays(response.data)})
+	}, [userToken]);
 
     function checkDay() {
-        days.map((day) => dates.push(day.day))
         let check = []
-        for (let i = 0; i < days.length; i++) {
-        days[i].habits.map((habit) => check.push(habit.done));
-        if (check.indexOf(false) !== -1) {
-            dones.push(false)
-            check = [];
-        }
-        else {
-            check = [];
-            dones.push(true)
-        }
-        }
+        days.map((day) => dates.push(day.day))
+        days.forEach(day => {
+            day.habits.map((habit) => check.push(habit.done));
+            if (check.indexOf(false) !== -1) {
+                dones.push(false)
+                check = [];
+            }
+            else {
+                check = [];
+                dones.push(true)
+            }
+        })
     }
 
     if (days.length !== 0) {
         checkDay();
+        dates.shift()
     }
 
     function setTileClassName (date) {
         let index = dates.indexOf(date);
         let calendarTileClass;
         let check = dones[index];
-        console.log(date)
         check ? calendarTileClass = 'all-done' : calendarTileClass = 'not-all-done';
         return calendarTileClass
     }
