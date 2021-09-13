@@ -34,7 +34,9 @@ function Today() {
             <Topbar />
             <TodayDiv>
                 <P>{date}</P>
-                <HabitPercentage color={dayProgress !== 0 ? 1 : 0}>{dayProgress !== 0 ? `${dayProgress.toFixed(0)}% dos hábitos concluídos` : 'Nenhum hábito concluído ainda'}</HabitPercentage>
+                <HabitPercentage color={dayProgress !== 0 ? 1 : 0}>
+                    {dayProgress !== 0 ? `${dayProgress.toFixed(0)}% dos hábitos concluídos` : 'Nenhum hábito concluído ainda'}
+                </HabitPercentage>
 
                 {habits.map((habit, index) => <UserHabit title={habit.name} habitSpree={habit.currentSequence} habitRecord={habit.highestSequence} id={habit.id} key={index} habitDone={habit.done} pointsPerHabit={pointsPerHabit} />)}
             </TodayDiv>
@@ -86,14 +88,14 @@ function UserHabit({title, habitSpree, habitRecord, id, habitDone, pointsPerHabi
             <Wrapper>
                 <HabitTitle>{title}</HabitTitle>
                 <HabitDescription>Sequencia atual: <Span done={done ? 1 : 0}>{spree} {spree > 1 ? 'dias' : 'dia'}</Span></HabitDescription>
-                <HabitDescription>Seu recorde: <Span done={spree === record && record !== 0}>{record} {spree > 1 ? 'dias' : 'dia'}</Span></HabitDescription>
+                <HabitDescription>Seu recorde: <Span done={spree === record && record !== 0 && done !== false}>{record} {spree > 1 ? 'dias' : 'dia'}</Span></HabitDescription>
             </Wrapper>
             <HabitButton onClick={() => ChangeHabit(userToken, id)} done={done}>
                 <Checkmark
-                color={'#ffffff'} 
-                title={''}
-                height="60px"
-                width="60px"
+                    color={'#ffffff'} 
+                    title={''}
+                    height="60px"
+                    width="60px"
                 />
             </HabitButton>
         </Habit>

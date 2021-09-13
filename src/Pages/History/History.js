@@ -2,11 +2,12 @@ import * as dayjs from 'dayjs'
 import styled from 'styled-components'
 import { useState, useContext, useEffect } from 'react'
 import Calendar from 'react-calendar'
-import 'react-calendar/dist/calendar.css';
+import 'react-calendar/dist/Calendar.css';
 import Topbar from '../../Components/Topbar/Topbar'
 import Footer from '../../Components/Footer/Footer'
 import { Context } from '../../Context/Context';
 import { GetHistory } from '../../Services/Api';
+import ShowDayActivity from './ShowDayActivity';
 
 function History() {
     const {userToken} = useContext(Context);
@@ -37,8 +38,11 @@ function History() {
 
     if (days.length !== 0) {
         checkDay();
-        dates.shift()
-        dones.shift()
+        let today = dayjs().format('DD/MM/YYYY');
+        if (dates[0] === today) {
+            dates.shift()
+            dones.shift()
+        }
     }
 
     function setTileClassName (date) {
@@ -48,6 +52,7 @@ function History() {
         check ? calendarTileClass = 'all-done' : calendarTileClass = 'not-all-done';
         return calendarTileClass
     }
+    let [selected, setSelected] = useState({called: false, dates: [], day: ''});
 
     return(
         <Main>
@@ -62,8 +67,10 @@ function History() {
                           return tileClass
                         }
                       }}
+                    onClickDay={(day) => setSelected({called: true, dates: dates, day: dayjs(day).format('DD/MM/YYYY')}) }
                 />
             </HistoryDiv>
+            {selected.called ? <ShowDayActivity data={selected} setSelected={setSelected} days={days} /> : ''}
             <Footer />
         </Main>
     )

@@ -54,9 +54,9 @@ function CreateHabit({setCreateHabit, weekdays, newHabit, setNewHabit, habits, s
     return (
         <CreateNewHabit>
             <Wrapper>
-                <Input placeholder='nome do hábito' onChange={(e) => setNewHabit(e.target.value)} value={newHabit} loading={loading}/>
+                <Input placeholder='nome do hábito' onChange={(e) => setNewHabit(e.target.value)} value={newHabit} loading={loading ? 1 : 0}/>
                 <Week>
-                    {weekdays.map((day, index) => <Day day={day} changeCurrentDays={changeCurrentDays} selectedDays={selectedDays} key={index} access={index}  loading={loading}/>)}
+                    {weekdays.map((day, index) => <Day day={day} changeCurrentDays={changeCurrentDays} selectedDays={selectedDays} key={index} access={index}  loading={loading ? 1 : 0}/>)}
                 </Week>
             </Wrapper>
             <Options>
