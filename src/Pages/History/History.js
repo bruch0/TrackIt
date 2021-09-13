@@ -38,6 +38,7 @@ function History() {
     if (days.length !== 0) {
         checkDay();
         dates.shift()
+        dones.shift()
     }
 
     function setTileClassName (date) {
