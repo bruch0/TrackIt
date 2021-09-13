@@ -4,7 +4,7 @@ import GlobalStyle from '../globalStyles';
 import Login from '../Pages/Login/Login';
 import Register from '../Pages/Register/Register'
 import Habits from '../Pages/Habits/Habits';
-import Today from '../Pages/Today/Today';
+import CheckLoggedLogin from '../Pages/Today/Today';
 import History from '../Pages/History/History';
 import { Context } from '../Context/Context';
 
@@ -34,7 +34,7 @@ function App() {
           </Route>
 
           <Route path="/hoje">
-            <Today />
+            <CheckLoggedLogin />
           </Route>
 
           <Route path="/historico">

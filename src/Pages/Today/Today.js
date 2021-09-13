@@ -7,11 +7,25 @@ import { Context } from '../../Context/Context'
 import Topbar from '../../Components/Topbar/Topbar'
 import Footer from '../../Components/Footer/Footer'
 import Swal from 'sweetalert2';
+import NotLogged from '../Error/NotLogged'
+
+function CheckLoggedLogin() {
+    const {logged} = useContext(Context);
+    if(logged) {
+        return(
+            <Today />
+        )
+    }
+    else {
+        return(
+            <NotLogged />
+        )
+    }
+}
 
 function Today() {
     require('dayjs/locale/pt-br')
     let date = dayjs().locale('pt-br').format('dddd, DD/MM')
-
     const {userToken, dayProgress} = useContext(Context);
     let [habits, setHabits] = useState([]);
     let pointsPerHabit;
@@ -171,4 +185,4 @@ const HabitButton = styled.button`
     font-family: 'Lexend Deca';
 `
 
-export default Today
+export default CheckLoggedLogin
