@@ -8,6 +8,21 @@ import Footer from '../../Components/Footer/Footer'
 import { Context } from '../../Context/Context';
 import { GetHistory } from '../../Services/Api';
 import ShowDayActivity from './ShowDayActivity';
+import NotLogged from '../Error/NotLogged'
+
+function CheckLoggedHistory() {
+    const {logged} = useContext(Context);
+    if(logged) {
+        return(
+            <History />
+        )
+    }
+    else {
+        return(
+            <NotLogged />
+        )
+    }
+}
 
 function History() {
     const {userToken} = useContext(Context);
@@ -97,4 +112,4 @@ const HistoryDiv = styled.div`
     width: 92%;
 `
 
-export default History
+export default CheckLoggedHistory

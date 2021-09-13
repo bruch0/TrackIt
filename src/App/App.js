@@ -3,9 +3,9 @@ import { useState } from 'react';
 import GlobalStyle from '../globalStyles';
 import Login from '../Pages/Login/Login';
 import Register from '../Pages/Register/Register'
-import Habits from '../Pages/Habits/Habits';
-import CheckLoggedLogin from '../Pages/Today/Today';
-import History from '../Pages/History/History';
+import CheckLoggedHabits from '../Pages/Habits/Habits';
+import CheckLoggedToday from '../Pages/Today/Today';
+import CheckLoggedHistory from '../Pages/History/History';
 import { Context } from '../Context/Context';
 
 function App() {
@@ -30,15 +30,15 @@ function App() {
           </Route>
 
           <Route path="/habitos">
-            <Habits />
+            <CheckLoggedHabits />
           </Route>
 
           <Route path="/hoje">
-            <CheckLoggedLogin />
+            <CheckLoggedToday />
           </Route>
 
           <Route path="/historico">
-            <History />
+            <CheckLoggedHistory />
           </Route>
         </Switch>
       </Context.Provider>

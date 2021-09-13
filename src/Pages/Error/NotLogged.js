@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import ErrorImg from '../../Assets/errorImg.png'
 
 function NotLogged() {
     return (
         <Main>
             <Container>
                 <P>Opa! Parece que você não está logado</P>
+                <Img src={ErrorImg} />
                 <Link to='/'>
                     <Button>
                         Clique aqui para voltar para o menu principal
@@ -36,7 +38,12 @@ const Container = styled.div`
 
 const P = styled.p`
     font-size: 25px;
-    text-align: center
+    text-align: center;
+`
+
+const Img = styled.img`
+    width: 100%;
+    height: 50%;
 `
 
 const Button = styled.button`

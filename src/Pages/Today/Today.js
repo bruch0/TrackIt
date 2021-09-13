@@ -6,10 +6,10 @@ import { GetTodayHabits, ChangeHabitState } from '../../Services/Api'
 import { Context } from '../../Context/Context'
 import Topbar from '../../Components/Topbar/Topbar'
 import Footer from '../../Components/Footer/Footer'
-import Swal from 'sweetalert2';
+import Swal from 'sweetalert2'; 
 import NotLogged from '../Error/NotLogged'
 
-function CheckLoggedLogin() {
+function CheckLoggedToday() {
     const {logged} = useContext(Context);
     if(logged) {
         return(
@@ -185,4 +185,4 @@ const HabitButton = styled.button`
     font-family: 'Lexend Deca';
 `
 
-export default CheckLoggedLogin
+export default CheckLoggedToday

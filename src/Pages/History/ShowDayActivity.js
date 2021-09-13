@@ -15,7 +15,7 @@ function ShowDayActivity({data, setSelected, days}) {
     }
     else {
         let habits = []
-        days.map((date) => {if (date.day === day) {
+        days.forEach((date) => {if (date.day === day) {
             habits = date.habits
         }})
 

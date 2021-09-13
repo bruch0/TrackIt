@@ -7,6 +7,21 @@ import { GetHabits, DeleteHabit } from '../../Services/Api'
 import { Context } from "../../Context/Context";
 import icon from '../../Assets/thrashIcon.png'
 import Swal from 'sweetalert2';
+import NotLogged from '../Error/NotLogged'
+
+function CheckLoggedHabits() {
+    const {logged} = useContext(Context);
+    if(logged) {
+        return(
+            <Habits />
+        )
+    }
+    else {
+        return(
+            <NotLogged />
+        )
+    }
+}
 
 function Habits() {
     let [createHabit, setCreateHabit] = useState(false);
@@ -194,4 +209,4 @@ const WeekDay = styled.div`
     font-size: 20px;
 `
 
-export default Habits
+export default CheckLoggedHabits
