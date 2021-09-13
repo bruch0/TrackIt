@@ -2,12 +2,14 @@ import * as dayjs from 'dayjs'
 import styled from 'styled-components'
 import { Checkmark } from 'react-ionicons'
 import { useContext, useEffect, useState } from 'react'
+import Swal from 'sweetalert2'; 
+
+import NotLogged from '../Error/NotLogged'
 import { GetTodayHabits, ChangeHabitState } from '../../Services/Api'
 import { Context } from '../../Context/Context'
 import Topbar from '../../Components/Topbar/Topbar'
 import Footer from '../../Components/Footer/Footer'
-import Swal from 'sweetalert2'; 
-import NotLogged from '../Error/NotLogged'
+
 
 function CheckLoggedToday() {
     const {logged} = useContext(Context);

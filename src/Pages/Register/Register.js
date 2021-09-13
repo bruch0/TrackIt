@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import logo from '../../Assets/logo.png';
 import Loader from "react-loader-spinner";
 import { Link, useHistory } from 'react-router-dom';
 import { useState } from "react";
-import { RegisterAPI } from "../../Services/Api";
 import Swal from 'sweetalert2';
+
+import { RegisterAPI } from "../../Services/Api";
+import logo from '../../Assets/logo.png';
 
 
 function Register() {

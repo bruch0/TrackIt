@@ -2,10 +2,12 @@ import styled from "styled-components";
 import { useState, useContext } from "react";
 import { useHistory } from 'react-router-dom'
 import Day from './Day';
-import { CreateUserHabit } from '../../../Services/Api';
-import Swal from 'sweetalert2';
-import { Context } from "../../../Context/Context";
 import Loader from "react-loader-spinner";
+import Swal from 'sweetalert2';
+
+import { CreateUserHabit } from '../../../Services/Api';
+import { Context } from "../../../Context/Context";
+
 
 function CreateHabit({setCreateHabit, weekdays, newHabit, setNewHabit, habits, setHabits}) {
     let history = useHistory();

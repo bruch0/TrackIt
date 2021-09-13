@@ -2,6 +2,7 @@ import Swal from 'sweetalert2';
 import styled from 'styled-components';
 import { CloseCircleOutline, Checkmark, CloseOutline } from 'react-ionicons'
 
+
 function ShowDayActivity({data, setSelected, days}) {
     const {dates, day} = data;
     if (dates.indexOf(day) === -1) {

@@ -1,13 +1,15 @@
-import Topbar from "../../Components/Topbar/Topbar";
-import Footer from "../../Components/Footer/Footer";
 import styled from "styled-components";
-import CreateHabit from './CreateHabit/CreateHabit';
 import { useState, useContext, useEffect } from "react";
-import { GetHabits, DeleteHabit } from '../../Services/Api'
-import { Context } from "../../Context/Context";
 import icon from '../../Assets/thrashIcon.png'
 import Swal from 'sweetalert2';
+
+import { Context } from "../../Context/Context";
 import NotLogged from '../Error/NotLogged'
+import Topbar from "../../Components/Topbar/Topbar";
+import Footer from "../../Components/Footer/Footer";
+import { GetHabits, DeleteHabit } from '../../Services/Api'
+import CreateHabit from './CreateHabit/CreateHabit';
+
 
 function CheckLoggedHabits() {
     const {logged} = useContext(Context);

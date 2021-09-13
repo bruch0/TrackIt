@@ -1,12 +1,11 @@
-import {
-    CircularProgressbar,
-    buildStyles
-} from "react-circular-progressbar";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Context } from '../../Context/Context'
 import { useContext } from "react";
+
+import { Context } from '../../Context/Context'
+
 
 function Footer() {
     const {dayProgress} = useContext(Context);

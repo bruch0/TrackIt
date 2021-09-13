@@ -1,11 +1,13 @@
 import styled  from 'styled-components' 
 import { Link, useHistory } from 'react-router-dom'
-import logo from '../../Assets/logo.png'
-import { LoginApi } from '../../Services/Api'
 import { useState, useContext, useEffect, useCallback } from 'react'
 import Loader from "react-loader-spinner";
 import Swal from 'sweetalert2';
+
 import { Context } from '../../Context/Context'
+import logo from '../../Assets/logo.png'
+import { LoginApi } from '../../Services/Api'
+
 
 function Login() {
     const {setLogged, setUserPhoto, setUserToken} = useContext(Context);

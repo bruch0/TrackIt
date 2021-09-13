@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
 import ErrorImg from '../../Assets/errorImg.png'
+
 
 function NotLogged() {
     return (

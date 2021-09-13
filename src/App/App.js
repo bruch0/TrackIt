@@ -1,5 +1,6 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { useState } from 'react';
+
 import GlobalStyle from '../globalStyles';
 import Login from '../Pages/Login/Login';
 import Register from '../Pages/Register/Register'
@@ -7,6 +8,7 @@ import CheckLoggedHabits from '../Pages/Habits/Habits';
 import CheckLoggedToday from '../Pages/Today/Today';
 import CheckLoggedHistory from '../Pages/History/History';
 import { Context } from '../Context/Context';
+
 
 function App() {
   let [dayProgress, setDayProgress] = useState(0);
