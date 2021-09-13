@@ -47,7 +47,7 @@ function Register() {
             <Input placeholder="email" onChange={(e) => changeEmail(e)} loading={loading}/>
             <Input type='password' placeholder="senha" onChange={(e) => changePassword(e)} loading={loading}/>
             <Input placeholder="nome" onChange={(e) => changeName(e)} loading={loading}/>
-            <Input placeholder="foto" onChange={(e) => changeImage(e)} loading={loading}/>
+            <Input placeholder="url da foto" onChange={(e) => changeImage(e)} loading={loading}/>
 
             {(!loading ? <Button onClick={() => RegisterUser(userRegister)}>Cadastrar</Button> : <Wrapper><Loader type="ThreeDots" color="white" height={45} width={80} /></Wrapper>)}
             
