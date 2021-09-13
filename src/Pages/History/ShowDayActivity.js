@@ -4,7 +4,6 @@ import { CloseCircleOutline, Checkmark, CloseOutline } from 'react-ionicons'
 
 function ShowDayActivity({data, setSelected, days}) {
     const {dates, day} = data;
-    console.log(day)
     if (dates.indexOf(day) === -1) {
         Swal.fire({
             icon: 'error',
@@ -36,7 +35,7 @@ function Activity({setSelected, day, habits}) {
                         />
                 </Top>
                 <HabitsContainer>
-                    {habits.map((habit) => <HabitReview title={habit.name} done={habit.done} />)}
+                    {habits.map((habit, index) => <HabitReview title={habit.name} done={habit.done} key={index}/>)}
                     
                     
                 </HabitsContainer>

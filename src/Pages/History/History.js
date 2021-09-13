@@ -2,7 +2,7 @@ import * as dayjs from 'dayjs'
 import styled from 'styled-components'
 import { useState, useContext, useEffect } from 'react'
 import Calendar from 'react-calendar'
-import 'react-calendar/dist/Calendar.css';
+import '../../Assets/Calendar.css';
 import Topbar from '../../Components/Topbar/Topbar'
 import Footer from '../../Components/Footer/Footer'
 import { Context } from '../../Context/Context';
